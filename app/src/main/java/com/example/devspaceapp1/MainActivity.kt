@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.devspaceapp1.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
@@ -28,11 +29,26 @@ class MainActivity : AppCompatActivity() {
 
         btnCalcular.setOnClickListener {
 
-            val peso: Float = edtPeso.text.toString().toFloat()
-            val altura: Float = edtAltura.text.toString().toFloat()
-            val resultadoAltura = (altura * altura)
-            val resultadoImc = peso / resultadoAltura
-            println("Seu imc é " + resultadoImc )
+            val pesoStr: String = edtPeso.text.toString()
+            val alturaStr: String = edtAltura.text.toString()
+
+
+            if (pesoStr == "" || alturaStr == "") {
+                Snackbar.make(
+                    edtPeso,
+                    "Preencha todos os campos",
+                    Snackbar.LENGTH_LONG
+                )
+                    .show()
+
+            } else {
+                val peso: Float = edtPeso.text.toString().toFloat()
+                val altura: Float = edtAltura.text.toString().toFloat()
+                val resultadoAltura = (altura * altura)
+                val resultadoImc = peso / resultadoAltura
+                println("Seu imc é " + resultadoImc)
+
+            }
 
 
         }
