@@ -1,5 +1,6 @@
 package com.example.devspaceapp1
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,11 +27,12 @@ class MainActivity : AppCompatActivity() {
         val edtAltura = findViewById<TextInputEditText>(R.id.edtaltura)
         val btnCalcular = findViewById<Button>(R.id.btncalcular)
 
-
         btnCalcular.setOnClickListener {
 
             val pesoStr: String = edtPeso.text.toString()
             val alturaStr: String = edtAltura.text.toString()
+
+            // se o usuario nao preencher para evitar bug cria-se a snackbar
 
 
             if (pesoStr == "" || alturaStr == "") {
@@ -46,14 +48,17 @@ class MainActivity : AppCompatActivity() {
                 val altura: Float = edtAltura.text.toString().toFloat()
                 val resultadoAltura = (altura * altura)
                 val resultadoImc = peso / resultadoAltura
+
+
+                // criar nova tela
+                val intent = Intent(this, ResultActivity::class.java)
+               intent.putExtra( KEY_RESULT_IMC, resultadoImc)
+                startActivity(intent)
+
                 println("Seu imc é " + resultadoImc)
 
             }
-
-
         }
-
-
     }
 }
 
